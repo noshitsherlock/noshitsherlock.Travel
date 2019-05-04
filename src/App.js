@@ -23,7 +23,7 @@ const useFetch = url => {
 
 function App() {
 
-  const {loading,data} = useFetch("https://localhost:5001/api/travels");
+  const {loading,data} = useFetch("http://localhost:5000/api/travels");
 
   return (
     <div className="site">
