@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
+import Moment from "react-moment";
 
 function strikeTroughTime(date) {
-  return <a href="#" className="badge badge-light"><del>{new Date(date).toLocaleTimeString()}</del></a>
+  return <a href="#" className="badge badge-light"><del><Moment format="HH:mm">{date}</Moment></del></a>
 }
 
 function regularTime(date) {
-  return <span><a href="#" className="badge badge-primary">{new Date(date).toLocaleTimeString()}</a></span>
+  return <span><a href="#" className="badge badge-primary"><Moment format="HH:mm">{date}</Moment></a></span>
 }
 
 function regularLightTime(date) {
-  return <span><a href="#" className="badge badge-light">{new Date(date).toLocaleTimeString()}</a></span>
+  return <span><a href="#" className="badge badge-light"><Moment format="HH:mm">{date}</Moment></a></span>
 }
 
 const useFetch = url => {
