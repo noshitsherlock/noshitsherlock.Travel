@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Using https://momentjs.com/ to handle time.
+Using https://momentjs.com/ and https://www.npmjs.com/package/react-moment to handle time.
 
 ## Available Scripts
 
