@@ -1,4 +1,9 @@
+html, body {
+	height: 100%;
+}
+
 body {
+	background: #333;	
     margin: 0;
-    padding: 15px;
+    /* padding: 15px; */
 }
