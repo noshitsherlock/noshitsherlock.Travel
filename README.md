@@ -4,6 +4,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Using https://momentjs.com/ and https://www.npmjs.com/package/react-moment to handle time.
 
+## Update all packages
+
+Make sure that npm-check-updates package is installed globally => `npm install -g npm-check-updates` [https://flaviocopes.com/update-npm-dependencies/]
+
+Then run `ncu -u`
+
+Then run `npm update`
+
+Then run `npm install`
+
 ## Available Scripts
 
 In the project directory, you can run:
