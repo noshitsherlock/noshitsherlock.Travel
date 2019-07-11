@@ -37,10 +37,10 @@ function Travel() {
     }
   };
 
-  //const { loading: travelLoading, data: travelData } = useFetch("http://192.168.86.29:5000/api/travel");
-  //const { loading: situationLoading, data: situationData } = useFetch("http://192.168.86.29:5000/api/situation");
-  const { loading: travelLoading, data: travelData } = useFetch("http://localhost:5000/api/travel", refresh);
-  const { loading: situationLoading, data: situationData } = useFetch("http://localhost:5000/api/situation", refresh);
+  const { loading: travelLoading, data: travelData } = useFetch("http://192.168.86.29:5000/api/travel", refresh);
+  const { loading: situationLoading, data: situationData } = useFetch("http://192.168.86.29:5000/api/situation", refresh);
+  //const { loading: travelLoading, data: travelData } = useFetch("http://localhost:5000/api/travel", refresh);
+  //const { loading: situationLoading, data: situationData } = useFetch("http://localhost:5000/api/situation", refresh);
 
   return (
     <ReactPullToRefresh
