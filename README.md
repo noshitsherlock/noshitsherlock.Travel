@@ -1,4 +1,4 @@
-![Screenshot](https://i.ibb.co/KsLtRkr/May-24-2019-16-18-22.gif)
+![Screenshot](https://i.ibb.co/KqXN3qh/Jul-14-2019-15-48-05.gif)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
