@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SwipeableViews from "react-swipeable-views";
 import Situation from "./Situation";
 import Departure from "./Departure";
-import ReactPullToRefresh from "react-pull-to-refresh";
+import Pullable from "react-pullable"
 import { config } from "./constants";
 import uuid from "uuid";
 
@@ -33,26 +33,8 @@ function Travel() {
   const { loading: travelLoading, data: travelData } = useFetch(config.url.API_URL_TRAVEL_MULTIPLE + siteIdsQueryString, refresh);
   const { loading: situationLoading, data: situationData } = useFetch(config.url.API_URL_SITUATION, refresh);
 
-  function handleRefresh(resolve, reject) {
-    setRefresh(!refresh);
-    if (true) {
-      resolve();
-    } else {
-      reject();
-    }
-  };
-
   return (
-    <ReactPullToRefresh onRefresh={handleRefresh}>
-      <div id="ptr">
-        <div className="loading">
-          <span id="l1"></span>
-          <span id="l2"></span>
-          <span id="l3"></span>
-        </div>
-      </div>
-
-      <div id="content">
+    <Pullable onRefresh={() => setRefresh(!refresh)}>
         <div>
           {
             travelLoading
@@ -74,9 +56,8 @@ function Travel() {
               </SwipeableViews>
           }
 
-        </div>        
-      </div>
-    </ReactPullToRefresh>
+        </div>
+      </Pullable>
   )
 }
 
