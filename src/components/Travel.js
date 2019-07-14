@@ -3,6 +3,8 @@ import SwipeableViews from "react-swipeable-views";
 import Situation from "./Situation";
 import Departure from "./Departure";
 import ReactPullToRefresh from "react-pull-to-refresh";
+import { config } from "./constants";
+import uuid from "uuid";
 
 const useFetch = (url, refresh) => {
   const [data, setData] = useState(null);
@@ -26,7 +28,10 @@ const useFetch = (url, refresh) => {
 };
 
 function Travel() {
+  let siteIdsQueryString = "siteids=1532&siteids=9119";
   const [refresh, setRefresh] = useState(false);
+  const { loading: travelLoading, data: travelData } = useFetch(config.url.API_URL_TRAVEL_MULTIPLE + siteIdsQueryString, refresh);
+  const { loading: situationLoading, data: situationData } = useFetch(config.url.API_URL_SITUATION, refresh);
 
   function handleRefresh(resolve, reject) {
     setRefresh(!refresh);
@@ -37,14 +42,8 @@ function Travel() {
     }
   };
 
-  const { loading: travelLoading, data: travelData } = useFetch("http://192.168.86.29:5000/api/travel", refresh);
-  const { loading: situationLoading, data: situationData } = useFetch("http://192.168.86.29:5000/api/situation", refresh);
-  //const { loading: travelLoading, data: travelData } = useFetch("http://localhost:5000/api/travel", refresh);
-  //const { loading: situationLoading, data: situationData } = useFetch("http://localhost:5000/api/situation", refresh);
-
   return (
-    <ReactPullToRefresh
-      onRefresh={handleRefresh}>
+    <ReactPullToRefresh onRefresh={handleRefresh}>
       <div id="ptr">
         <div className="loading">
           <span id="l1"></span>
@@ -54,22 +53,28 @@ function Travel() {
       </div>
 
       <div id="content">
-        <SwipeableViews enableMouseEvents>
-          <div className="site">
-            <h1><i className="icon ion-md-bus"></i> Linje 134</h1>
-            {travelLoading
+        <div>
+          {
+            travelLoading
               ? <div>Loading...</div>
-              : <Departure data={travelData}></Departure>
-            }
-          </div>
-          <div>
-            {situationLoading
-              ? <div>Loading...</div>
-              : <Situation data={situationData}></Situation>
-            }
+              : <SwipeableViews enableMouseEvents>
+                {
+                  travelData.map(travel =>
+                    <Departure key={uuid.v4()} data={travel}></Departure>
+                  )
+                }
+                 { <div>
+                   {
+                     situationLoading
+                     ? <div>Loading...</div>
+                     : <Situation data={situationData}></Situation>
+                   }
 
-          </div>
-        </SwipeableViews>
+                 </div> }
+              </SwipeableViews>
+          }
+
+        </div>        
       </div>
     </ReactPullToRefresh>
   )
