@@ -1,10 +1,13 @@
 import React from "react";
-import Travel from "./components/Travel"
+import Travel from "./components/Travel";
+import { GlobalStateProvider } from "./state";
 
 function App() {
 
   return (
-    <Travel></Travel>
+    <GlobalStateProvider>
+      <Travel></Travel>
+    </GlobalStateProvider>
   )
 }
 

@@ -5,6 +5,8 @@ import Departure from "./Departure";
 import Pullable from "react-pullable"
 import { config } from "./constants";
 import uuid from "uuid";
+import { useGlobalState } from "../state";
+import AddSiteId from "./AddSiteId";
 
 const useFetch = (url, refresh) => {
   const [data, setData] = useState(null);
@@ -53,6 +55,7 @@ function Travel() {
                    }
 
                  </div> }
+                 <AddSiteId></AddSiteId>
               </SwipeableViews>
           }
 

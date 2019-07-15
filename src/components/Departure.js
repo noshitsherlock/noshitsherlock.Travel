@@ -1,8 +1,10 @@
 import React, { useState } from "react"
 import { RegularLightTime, RegularTime, StrikeTroughTime } from "./Times"
+import { useGlobalState } from "../state";
 
 function Departure({ data }) {
     const [filter, setFilter] = useState("BUS");
+    const [value, update] = useGlobalState('siteIds')
     const hasMultipleTravel = data.responseData.buses.length > 0 && data.responseData.metros.length > 0;
     const busLength = data.responseData.buses.length;
     const metroLength = data.responseData.metros.length
@@ -13,6 +15,7 @@ function Departure({ data }) {
 
     return (
         <div>
+            <h1>{value}</h1>
             <h1>
                 {busLength > 0 ? <i className={"icon ion-md-bus " + (filter != "BUS" ? "disabled" : "")} onClick={handleClick}></i> : ""}
                 {metroLength > 0 ? <i className={"ion ion-md-train icon-space " + (filter != "METROS" ? "disabled" : "")} onClick={handleClick}></i> : ""}
