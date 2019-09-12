@@ -28,9 +28,8 @@ const useFetch = (url, refresh) => {
 };
 
 function Travel() {
-  let siteIdsQueryString = "siteids=1532&siteids=9119";
   const [refresh, setRefresh] = useState(false);
-  const { loading: travelLoading, data: travelData } = useFetch(config.url.API_URL_TRAVEL_MULTIPLE + siteIdsQueryString, refresh);
+  const { loading: travelLoading, data: travelData } = useFetch(config.url.API_URL_TRAVEL_MULTIPLE, refresh);
   const { loading: situationLoading, data: situationData } = useFetch(config.url.API_URL_SITUATION, refresh);
 
   return (
