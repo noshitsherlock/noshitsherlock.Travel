@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { RegularLightTime, RegularTime, StrikeTroughTime } from "./Times"
+import Deviation from "./Deviation"
 
 function Departure({ data }) {
     const [filter, setFilter] = useState("BUS");
@@ -23,10 +24,16 @@ function Departure({ data }) {
                     {data.responseData.buses.map(bus =>
                         <li key={bus.journeyNumber} className="list-group-item">
                             <small>{bus.lineNumber} till {bus.destination}</small>                                
-                            <p>Går om <span className="badge badge-pill badge-info">{bus.displayTime}</span> {bus.timeTabledDateTime === bus.expectedDateTime
+                            <p>Går om <span className="badge badge-pill badge-info">{bus.displayTime}</span> 
+                            {
+                                bus.timeTabledDateTime === bus.expectedDateTime
                                 ? <RegularLightTime date={bus.timeTabledDateTime}></RegularLightTime>
-                                : <span><RegularTime date={bus.expectedDateTime}></RegularTime> <StrikeTroughTime date={bus.timeTabledDateTime}></StrikeTroughTime></span>}
-                            </p>
+                                : <span><RegularTime date={bus.expectedDateTime}></RegularTime> <StrikeTroughTime date={bus.timeTabledDateTime}></StrikeTroughTime></span>
+                            }
+                            {
+                                bus.deviations && bus.deviations.length > 0 ? <Deviation collection={bus.deviations}></Deviation> : ""
+                            }
+                            </p>                            
                         </li>
                     )}
                 </ul>
@@ -38,9 +45,15 @@ function Departure({ data }) {
                     {data.responseData.metros.map(metro =>
                         <li key={metro.journeyNumber} className="list-group-item">
                             <small>{metro.lineNumber} till {metro.destination}</small>
-                            <p>Går om <span className="badge badge-pill badge-info">{metro.displayTime}</span> {metro.timeTabledDateTime === metro.expectedDateTime
+                            <p>Går om <span className="badge badge-pill badge-info">{metro.displayTime}</span> 
+                            {
+                                metro.timeTabledDateTime === metro.expectedDateTime
                                 ? <RegularLightTime date={metro.timeTabledDateTime}></RegularLightTime>
-                                : <span><RegularTime date={metro.expectedDateTime}></RegularTime> <StrikeTroughTime date={metro.timeTabledDateTime}></StrikeTroughTime></span>}
+                                : <span><RegularTime date={metro.expectedDateTime}></RegularTime> <StrikeTroughTime date={metro.timeTabledDateTime}></StrikeTroughTime></span>
+                            }
+                            {
+                                metro.deviations && metro.deviations.length > 0 ? <Deviation collection={metro.deviations}></Deviation> : ""
+                            }
                             </p>
                         </li>
                     )}
