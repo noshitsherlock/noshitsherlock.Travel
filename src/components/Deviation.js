@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 
-function Deviation({deviations}) {
+function Deviation({collection}) {
     const [show, setShow] = useState(false);
+    var collectionStyle = {display : "block"};
 
     function handleClick() {
         setShow(!show);
@@ -10,7 +11,7 @@ function Deviation({deviations}) {
     return (
         <span>
         <i className="ion ion-md-alert" onClick={handleClick}></i>
-            {show ? <p>{deviations[0].text}</p> : "" }
+            {show ? <span>{collection.map(deviation => <span style={collectionStyle}>{deviation.text}</span>)}</span> : "" }
         </span>
     )
 }
