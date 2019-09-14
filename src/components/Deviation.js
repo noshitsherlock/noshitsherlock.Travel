@@ -11,7 +11,7 @@ function Deviation({collection}) {
     return (
         <span>
         <i className="ion ion-md-alert" onClick={handleClick}></i>
-            {show ? <span>{collection.map(deviation => <span style={collectionStyle}>{deviation.text}</span>)}</span> : "" }
+            {show ? <span>{collection.map((deviation, index) => <span key={index} style={collectionStyle}>{deviation.text}</span>)}</span> : "" }
         </span>
     )
 }
