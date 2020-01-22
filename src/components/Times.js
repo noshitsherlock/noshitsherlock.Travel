@@ -1,21 +1,24 @@
 import React from "react";
 import Moment from "react-moment"
 
+// When the departure should have been
 function StrikeTroughTime({ date }) {
     return (
-        <a href="#" className="badge badge-light"><del><Moment format="HH:mm">{date}</Moment></del></a>
+        <del><Moment format="HH:mm">{date}</Moment></del>
     )
 }
 
+// When everything is awesome
 function RegularTime({ date }) {
     return (
-        <span><a href="#" className="badge badge-primary"><Moment format="HH:mm">{date}</Moment></a></span>
+        <Moment format="HH:mm">{date}</Moment>
     )
 }
 
+// This will be shown together with the StrikeTrough component
 function RegularLightTime({ date }) {
     return (
-        <span><a href="#" className="badge badge-light"><Moment format="HH:mm">{date}</Moment></a></span>
+        <Moment format="HH:mm">{date}</Moment>
     )
 }
 
