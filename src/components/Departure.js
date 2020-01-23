@@ -1,6 +1,36 @@
 import React, { useState } from "react"
 import { RegularLightTime, RegularTime, StrikeTroughTime } from "./Times"
+import { makeStyles } from '@material-ui/core/styles';
+import { deepOrange } from '@material-ui/core/colors';
 import Deviation from "./Deviation"
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        width: '100%',
+        maxWidth: 600,
+        backgroundColor: theme.palette.background.paper,
+        marginTop: 5,
+    },
+    large: {
+        color: theme.palette.getContrastText(deepOrange[500]),
+        backgroundColor: deepOrange[500],
+        width: theme.spacing(7),
+        height: theme.spacing(7),
+        textAlign: "center",
+        marginRight: "10px"
+    },
+    inline: {
+        display: 'inline',
+    },
+}));
 
 function Departure({ data }) {
     const [filter, setFilter] = useState("BUS");
@@ -12,56 +42,92 @@ function Departure({ data }) {
         if (hasMultipleTravel) filter === "BUS" ? setFilter("METROS") : setFilter("BUS");
     }
 
+    const classes = useStyles();
+
     return (
         <div>
-            <h1>
+            <Typography variant="h2">
                 {busLength > 0 ? <i className={"icon ion-md-bus " + (filter != "BUS" ? "disabled" : "")} onClick={handleClick}></i> : ""}
                 {metroLength > 0 ? <i className={"ion ion-md-train icon-space " + (filter != "METROS" ? "disabled" : "")} onClick={handleClick}></i> : ""}
                 <span className="icon-space">{busLength > 0 ? data.responseData.buses[0].stopAreaName : data.responseData.metros[0].stopAreaName}</span>
-            </h1>
+            </Typography>
             {filter === "BUS" ?
-                <ul className="list-group">
+                <List className={classes.root}>
                     {data.responseData.buses.map(bus =>
-                        <li key={bus.journeyNumber} className="list-group-item">
-                            <small>{bus.lineNumber} till {bus.destination}</small>                                
-                            <p>Går om <span className="badge badge-pill badge-info">{bus.displayTime}</span> 
-                            {
-                                bus.timeTabledDateTime === bus.expectedDateTime
-                                ? <RegularLightTime date={bus.timeTabledDateTime}></RegularLightTime>
-                                : <span><RegularTime date={bus.expectedDateTime}></RegularTime> <StrikeTroughTime date={bus.timeTabledDateTime}></StrikeTroughTime></span>
-                            }
-                            {
-                                bus.deviations && bus.deviations.length > 0 ? <Deviation collection={bus.deviations}></Deviation> : ""
-                            }
-                            </p>                            
-                        </li>
+                        <div>
+                            <ListItem key={bus.journeyNumber} alignItems="flex-start">
+                                <ListItemAvatar>
+                                    <Avatar className={classes.large}>{bus.displayTime}</Avatar>
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={`${bus.lineNumber} till ${bus.destination}`}
+                                    secondary={
+                                        <React.Fragment>
+                                            <Typography
+                                                component="span"
+                                                variant="body2"
+                                                className={classes.inline}
+                                                color="textPrimary"
+                                            >
+                                                {
+                                                    bus.timeTabledDateTime === bus.expectedDateTime
+                                                        ? <Chip label={<RegularLightTime date={bus.timeTabledDateTime}></RegularLightTime>} color="primary" />
+                                                        : <span><Chip label={<RegularTime date={bus.expectedDateTime}></RegularTime>} /> <Chip label={<StrikeTroughTime date={bus.timeTabledDateTime}></StrikeTroughTime>} color="secondary" /></span>
+                                                }
+                                                {
+                                                    bus.deviations && bus.deviations.length > 0 ? <Deviation collection={bus.deviations}></Deviation> : ""
+                                                }
+                                            </Typography>
+                                        </React.Fragment>
+                                    }
+                                />
+                            </ListItem>
+                            <Divider variant="inset" component="li"></Divider>
+                        </div>
                     )}
-                </ul>
+                </List>
                 : <div></div>
             }
 
             {filter === "METROS" ?
-                <ul className="list-group">
+                <List className={classes.root}>
                     {data.responseData.metros.map(metro =>
-                        <li key={metro.journeyNumber} className="list-group-item">
-                            <small>{metro.lineNumber} till {metro.destination}</small>
-                            <p>Går om <span className="badge badge-pill badge-info">{metro.displayTime}</span> 
-                            {
-                                metro.timeTabledDateTime === metro.expectedDateTime
-                                ? <RegularLightTime date={metro.timeTabledDateTime}></RegularLightTime>
-                                : <span><RegularTime date={metro.expectedDateTime}></RegularTime> <StrikeTroughTime date={metro.timeTabledDateTime}></StrikeTroughTime></span>
-                            }
-                            {
-                                metro.deviations && metro.deviations.length > 0 ? <Deviation collection={metro.deviations}></Deviation> : ""
-                            }
-                            </p>
-                        </li>
+                        <div>
+                            <ListItem key={metro.journeyNumber} alignItems="flex-start">
+                                <ListItemAvatar>
+                                    <Avatar className={classes.large}>{metro.displayTime}</Avatar>
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={`${metro.lineNumber} till ${metro.destination}`}
+                                    secondary={
+                                        <React.Fragment>
+                                            <Typography
+                                                component="span"
+                                                variant="body2"
+                                                className={classes.inline}
+                                                color="textPrimary"
+                                            >
+                                                {
+                                                    metro.timeTabledDateTime === metro.expectedDateTime
+                                                        ? <Chip label={<RegularLightTime date={metro.timeTabledDateTime}></RegularLightTime>} color="primary" />
+                                                        : <span><Chip label={<RegularTime date={metro.expectedDateTime}></RegularTime>} /> <Chip label={<StrikeTroughTime date={metro.timeTabledDateTime}></StrikeTroughTime>} color="secondary" /></span>
+                                                }
+                                                {
+                                                    metro.deviations && metro.deviations.length > 0 ? <Deviation collection={metro.deviations}></Deviation> : ""
+                                                }
+                                            </Typography>
+                                        </React.Fragment>
+                                    }
+                                />
+                            </ListItem>
+                            <Divider variant="inset" component="li"></Divider>
+                        </div>
                     )}
-                </ul>
+                </List>
                 : <div></div>
             }
         </div>
-    )
+    );
 }
 
 export default Departure;
