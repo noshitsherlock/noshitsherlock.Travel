@@ -54,7 +54,7 @@ function Situation({ data }) {
                         }
                         />
                     </ListItem>    
-                    <Divider />                
+                    <Divider variant="middle"/>                
                 </div>                
             )}
         </List>

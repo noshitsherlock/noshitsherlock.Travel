@@ -82,7 +82,7 @@ function Departure({ data }) {
                                     }
                                 />
                             </ListItem>
-                            <Divider variant="inset" component="li"></Divider>
+                            <Divider variant="middle" />
                         </div>
                     )}
                 </List>
@@ -120,7 +120,7 @@ function Departure({ data }) {
                                     }
                                 />
                             </ListItem>
-                            <Divider variant="inset" component="li"></Divider>
+                            <Divider variant="middle" />
                         </div>
                     )}
                 </List>
