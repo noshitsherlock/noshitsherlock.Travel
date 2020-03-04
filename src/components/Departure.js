@@ -34,9 +34,9 @@ const useStyles = makeStyles(theme => ({
 
 function Departure({ data }) {
     const [filter, setFilter] = useState("BUS");
-    const hasMultipleTravel = data.responseData.buses.length > 0 && data.responseData.metros.length > 0;
-    const busLength = data.responseData.buses.length;
-    const metroLength = data.responseData.metros.length
+    const hasMultipleTravel = data.ResponseData.Buses.length > 0 && data.ResponseData.Metros.length > 0;
+    const busLength = data.ResponseData.Buses.length;
+    const metroLength = data.ResponseData.Metros.length
 
     function handleClick() {
         if (hasMultipleTravel) filter === "BUS" ? setFilter("METROS") : setFilter("BUS");
@@ -49,18 +49,18 @@ function Departure({ data }) {
             <Typography variant="h2">
                 {busLength > 0 ? <i className={"icon ion-md-bus " + (filter != "BUS" ? "disabled" : "")} onClick={handleClick}></i> : ""}
                 {metroLength > 0 ? <i className={"ion ion-md-train icon-space " + (filter != "METROS" ? "disabled" : "")} onClick={handleClick}></i> : ""}
-                <span className="icon-space">{busLength > 0 ? data.responseData.buses[0].stopAreaName : data.responseData.metros[0].stopAreaName}</span>
+                <span className="icon-space">{busLength > 0 ? data.ResponseData.Buses[0].StopAreaName : data.ResponseData.Metros[0].StopAreaName}</span>
             </Typography>
             {filter === "BUS" ?
                 <List className={classes.root}>
-                    {data.responseData.buses.map(bus =>
-                        <div>
-                            <ListItem key={bus.journeyNumber} alignItems="flex-start">
+                    {data.ResponseData.Buses.map(bus =>
+                        <div key={bus.JourneyNumber}>
+                            <ListItem alignItems="flex-start">
                                 <ListItemAvatar>
-                                    <Avatar className={classes.large}>{bus.displayTime}</Avatar>
+                                    <Avatar className={classes.large}>{bus.DisplayTime}</Avatar>
                                 </ListItemAvatar>
                                 <ListItemText
-                                    primary={`${bus.lineNumber} till ${bus.destination}`}
+                                    primary={`${bus.LineNumber} till ${bus.Destination}`}
                                     secondary={
                                         <React.Fragment>
                                             <Typography
@@ -70,12 +70,12 @@ function Departure({ data }) {
                                                 color="textPrimary"
                                             >
                                                 {
-                                                    bus.timeTabledDateTime === bus.expectedDateTime
-                                                        ? <Chip label={<RegularLightTime date={bus.timeTabledDateTime}></RegularLightTime>} color="primary" />
-                                                        : <span><Chip label={<RegularTime date={bus.expectedDateTime}></RegularTime>} /> <Chip label={<StrikeTroughTime date={bus.timeTabledDateTime}></StrikeTroughTime>} color="secondary" /></span>
+                                                    bus.TimeTabledDateTime === bus.ExpectedDateTime
+                                                        ? <Chip component="span" label={<RegularLightTime date={bus.TimeTabledDateTime}></RegularLightTime>} color="primary" />
+                                                        : <span><Chip component="span" label={<RegularTime date={bus.ExpectedDateTime}></RegularTime>} /> <Chip component="span" label={<StrikeTroughTime date={bus.TimeTabledDateTime}></StrikeTroughTime>} color="secondary" /></span>
                                                 }
                                                 {
-                                                    bus.deviations && bus.deviations.length > 0 ? <Deviation collection={bus.deviations}></Deviation> : ""
+                                                    bus.Deviations && bus.Deviations.length > 0 ? <Deviation collection={bus.Deviations}></Deviation> : ""
                                                 }
                                             </Typography>
                                         </React.Fragment>
@@ -91,14 +91,14 @@ function Departure({ data }) {
 
             {filter === "METROS" ?
                 <List className={classes.root}>
-                    {data.responseData.metros.map(metro =>
+                    {data.ResponseData.Metros.map(metro =>
                         <div>
-                            <ListItem key={metro.journeyNumber} alignItems="flex-start">
+                            <ListItem key={metro.JourneyNumber} alignItems="flex-start">
                                 <ListItemAvatar>
-                                    <Avatar className={classes.large}>{metro.displayTime}</Avatar>
+                                    <Avatar className={classes.large}>{metro.DisplayTime}</Avatar>
                                 </ListItemAvatar>
                                 <ListItemText
-                                    primary={`${metro.lineNumber} till ${metro.destination}`}
+                                    primary={`${metro.LineNumber} till ${metro.Destination}`}
                                     secondary={
                                         <React.Fragment>
                                             <Typography
@@ -108,12 +108,12 @@ function Departure({ data }) {
                                                 color="textPrimary"
                                             >
                                                 {
-                                                    metro.timeTabledDateTime === metro.expectedDateTime
-                                                        ? <Chip label={<RegularLightTime date={metro.timeTabledDateTime}></RegularLightTime>} color="primary" />
-                                                        : <span><Chip label={<RegularTime date={metro.expectedDateTime}></RegularTime>} /> <Chip label={<StrikeTroughTime date={metro.timeTabledDateTime}></StrikeTroughTime>} color="secondary" /></span>
+                                                    metro.TimeTabledDateTime === metro.ExpectedDateTime
+                                                        ? <Chip label={<RegularLightTime date={metro.TimeTabledDateTime}></RegularLightTime>} color="primary" />
+                                                        : <span><Chip label={<RegularTime date={metro.ExpectedDateTime}></RegularTime>} /> <Chip label={<StrikeTroughTime date={metro.TimeTabledDateTime}></StrikeTroughTime>} color="secondary" /></span>
                                                 }
                                                 {
-                                                    metro.deviations && metro.deviations.length > 0 ? <Deviation collection={metro.deviations}></Deviation> : ""
+                                                    metro.Deviations && metro.Deviations.length > 0 ? <Deviation collection={metro.Deviations}></Deviation> : ""
                                                 }
                                             </Typography>
                                         </React.Fragment>

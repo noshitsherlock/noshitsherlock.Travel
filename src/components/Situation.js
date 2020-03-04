@@ -33,9 +33,9 @@ function Situation({ data }) {
 
     return (
         <List className={classes.root}>
-            {JSON.parse(data).ResponseData.TrafficTypes.map(types =>
-                <div>
-                    <ListItem key={types.Id}>
+            {data.ResponseData.TrafficTypes.map(types =>
+                <div key={types.Id}>
+                    <ListItem>
                     <ListItemText
                         primary={<Typography variant="h5">{types.Name}</Typography>}
                         secondary={
