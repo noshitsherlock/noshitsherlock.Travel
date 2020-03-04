@@ -9,8 +9,8 @@ import '@material-ui/core'
 import './custom.css';
 // import './refresh.css';
 
-import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider"
-import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider as MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+//import { createMuiTheme } from '@material-ui/core/styles';
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -19,9 +19,9 @@ const darkTheme = createMuiTheme({
   });
 
 ReactDOM.render(
-    <ThemeProvider theme={darkTheme}>
+    <MuiThemeProvider theme={darkTheme}>
         <App />
-    </ThemeProvider>, 
+    </MuiThemeProvider>, 
     document.getElementById('root')
     );
 
